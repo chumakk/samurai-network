@@ -15,32 +15,4 @@ a img, img{
   height: 100%;
   object-fit: contain;
 }
-.header {
-  grid-area: h;
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  padding: 5px 0;
-  background: #4473ff;
-}
-.header h1{
-    text-align: center;
-}
-.header a{
-  display: inline-block;
-  width: 40px;
-  height: 45px;
-}
 
-.nav {
-  grid-area: n;
-  background: #4473ff;
-}
-.nav a{
-  color: inherit;
-  text-decoration:none;
-}
-
-.content {
-  grid-area: c;
-  color:#3f3f3f;
-}

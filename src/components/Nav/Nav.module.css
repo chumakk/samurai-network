@@ -1,0 +1,8 @@
+.nav {
+  grid-area: n;
+  background: #4473ff;
+}
+.nav a {
+  color: inherit;
+  text-decoration: none;
+}
