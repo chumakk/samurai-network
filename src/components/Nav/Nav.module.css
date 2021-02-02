@@ -1,8 +1,18 @@
 .nav {
   grid-area: n;
+  padding: 20px;
   background: #4473ff;
 }
 .nav a {
+  display: inline-block;
   color: inherit;
+  padding:10px 0;
   text-decoration: none;
+}
+.nav a:hover{
+  color:#ccc;
+}
+.nav a.active {
+  /* color:rgb(81, 255, 174); */
+  color:#ffd044;
 }

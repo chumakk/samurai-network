@@ -7,8 +7,13 @@
   grid-template-areas:
     "h h"
     "n c";
+  align-items: start;
   grid-gap: 10px;
   color: #fff;
+}
+.app-content-wrapper{
+    grid-area: c;
+    color: #3f3f3f;
 }
 a img, img{
   width: 100%;
