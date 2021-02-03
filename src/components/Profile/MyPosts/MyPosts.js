@@ -1,11 +1,12 @@
 import React from "react";
 import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
+import s from "./MyPosts.module.css";
 
-export default function MyPosts() {
+export function MyPosts() {
   return (
-    <div>
-      My posts
+    <div className={s.postsContainer}>
+      <h3 className={s.postsTitle}>My posts</h3>
       <NewPost></NewPost>
       <div>
         <Post />
@@ -14,3 +15,5 @@ export default function MyPosts() {
     </div>
   );
 }
+
+export default MyPosts;

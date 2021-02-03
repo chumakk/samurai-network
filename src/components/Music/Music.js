@@ -1,10 +1,12 @@
 import React from "react";
 import s from "./Music.module.css";
 
-export default function Music() {
+function Music() {
   return (
     <div>
       Music
     </div>
   );
 }
+
+export default Music;

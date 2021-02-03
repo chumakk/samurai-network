@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./NewPost.module.css";
 
-export default function NewPost() {
+function NewPost() {
   return (
     <div>
       <textarea></textarea>
@@ -11,3 +11,5 @@ export default function NewPost() {
     </div>
   );
 }
+
+export default NewPost;

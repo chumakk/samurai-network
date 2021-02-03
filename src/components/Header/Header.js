@@ -2,7 +2,7 @@ import React from "react";
 import icon from "./icon.png";
 import s from "./Header.module.css";
 
-export default function Header() {
+function Header() {
   return (
     <header className={s.header}>
       <a href="#">
@@ -12,3 +12,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;
