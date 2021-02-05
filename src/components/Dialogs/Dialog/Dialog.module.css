@@ -1,11 +1,48 @@
-.dialog a{
-    display: inline-block;
-    width:100%;
-    padding: 10px 0;
-    color:inherit;
-    text-decoration: none;
+.dialog a {
+  display: grid;
+  grid-template-columns: 55px 1fr;
+  align-items: start;
+  padding: 10px;
+  color: inherit;
+  text-decoration: none;
 }
-.dialog a.active{
-    background: #4473ff;
-    color: #fff;
+.dialog a.active {
+  background: #4473ff;
+  color: #fff;
+}
+.avatarWrapper {
+  max-height: 45px;
+}
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.infoWrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-row-gap: 3px;
+  align-items: center;
+}
+.name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.timeLastMessage {
+  font-size: 13px;
+  height: 18px;
+}
+
+.lastMessage {
+  font-size: 14px;
+  height: 18px;
+  overflow: hidden;
+}
+.lastMessageFrom {
+  color: #7344ff;
+}
+.active .lastMessageFrom {
+  color: #ffffff;
 }

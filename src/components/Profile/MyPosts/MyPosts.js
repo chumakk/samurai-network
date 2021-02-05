@@ -3,15 +3,16 @@ import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css";
 
-export function MyPosts() {
+function MyPosts(props) {
+  const posts = props.postsData.map((post) => (
+    <Post key={post.id} text={post.text} countOfLikes={post.countOfLikes} />
+  ));
+
   return (
     <div className={s.postsContainer}>
       <h3 className={s.postsTitle}>My posts</h3>
       <NewPost></NewPost>
-      <div>
-        <Post />
-        <Post />
-      </div>
+      <div>{posts}</div>
     </div>
   );
 }

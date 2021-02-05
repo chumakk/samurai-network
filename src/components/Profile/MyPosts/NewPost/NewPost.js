@@ -2,11 +2,12 @@ import React from "react";
 import s from "./NewPost.module.css";
 
 function NewPost() {
+  let newref = React.createRef();
   return (
     <div>
-      <textarea></textarea>
+      <textarea ref={newref}></textarea>
       <div>
-        <button>Add post</button>
+        <button onClick={() => alert(newref.current.value)}>Add post</button>
       </div>
     </div>
   );

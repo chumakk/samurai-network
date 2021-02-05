@@ -3,19 +3,27 @@ import Dialog from "./Dialog/Dialog";
 import s from "./Dialogs.module.css";
 import Message from "./Message/Message";
 
-function Dialogs() {
+function Dialogs(props) {
+  const dialogs = props.state.dialogs.map((dialog) => (
+    <Dialog key={dialog.id} state={dialog} />
+  ));
+
+  const messages = props.state.messages.map((message) => (
+    <Message key={message.id} state={message} />
+  ));
+
   return (
     <div className={s.dialogsWrapper}>
       <div className={s.dialogsTitle}>Dialogs</div>
-      <div className={s.dialogsItems}>
-        <Dialog name="Kirill" id="1"></Dialog>
-        <Dialog name="Valera" id="2"></Dialog>
-        <Dialog name="Maxim" id="3"></Dialog>
-      </div>
-      <div className={s.messageContainer}>
-        <Message message="Hi"></Message>
-        <Message message="How are you doing?"></Message>
-        <Message message="YO"></Message>
+      <div className={s.dialogsItems}>{dialogs}</div>
+      <div className={s.messageSide}>
+        <div className={s.messageContainer}>
+            {messages}
+        </div>
+        <div className={s.inputMessage}>
+          <textarea></textarea>
+          <button>Отпавить</button>
+        </div>
       </div>
     </div>
   );

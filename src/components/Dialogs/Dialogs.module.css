@@ -1,17 +1,33 @@
 .dialogsWrapper{
     display: grid;
     grid-template-columns: 4fr 8fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas: " t t"
     "d m";
+
 }
 .dialogsTitle{
     grid-area: t;
     font-weight: 700;
+    margin-bottom: 20px;
 }
 .dialogsItems{
     grid-area: d;
+    border-right: 1px solid #b4b4b4;
+}
+
+.messageSide{
+    grid-area: m;
+    /* overflow: auto;
+    display: grid;
+    grid-template-rows: 1fr auto; */
+    padding:0 40px;
 }
 
 .messageContainer{
-    grid-area: m;
+   /* overflow: auto; */
+}
+
+.inputMessage{
+    margin-bottom: 50px;
 }

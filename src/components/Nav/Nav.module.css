@@ -1,5 +1,6 @@
 .nav {
   grid-area: n;
+  align-self: start;
   padding: 20px;
   background: #4473ff;
 }

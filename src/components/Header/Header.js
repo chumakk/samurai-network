@@ -1,13 +1,14 @@
 import React from "react";
 import icon from "./icon.png";
+import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
 
 function Header() {
   return (
     <header className={s.header}>
-      <a href="#">
+      <NavLink to="/">
         <img src={icon} alt="icon" />
-      </a>
+      </NavLink>
       <h1>Social-Network.samurai</h1>
     </header>
   );
