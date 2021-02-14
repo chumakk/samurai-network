@@ -1,27 +1,25 @@
 import React from "react";
 import s from "./NewMessage.module.css";
-import {
-  addNewMessage,
-  updateNewMessageTextActionCreator,
-} from "../../../state/state.js";
 
 export function NewMessage(props) {
 
-  function changeNewMessageText(e) {
+  function onChangeNewMessage(e) {
     const text = e.target.value;
-    props.dispatch(updateNewMessageTextActionCreator(text));
+    props.changeNewMessageText(text);
+    // props.dispatch(updateNewMessageTextActionCreator(text));
   }
 
-  function makeNewMessage() {
-    props.dispatch(addNewMessage());
+  function onCreateNewMessage() {
+    props.createNewMessage();
+    // props.dispatch(addNewMessage());
   }
 
   return (
     <div className={s.inputMessage}>
       <textarea
-        value={props.state.newMessageText}
-        onChange={changeNewMessageText} />
-      <button onClick={makeNewMessage}>Отпавить</button>
+        value={props.newMessageText}
+        onChange={onChangeNewMessage} />
+      <button onClick={onCreateNewMessage}>Отпавить</button>
     </div>
   );
 }

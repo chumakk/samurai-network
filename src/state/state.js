@@ -1,7 +1,6 @@
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+import profileReducer from "./profile-reducer.js";
+import dialogsReducer from "./dialogs-reducer.js";
+
 let store = {
   _state: {
     profilePage: {
@@ -59,66 +58,11 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
-
-      const post = {
-        id: this._state.profilePage.posts.length + 1,
-        text: this._state.profilePage.newPostText,
-        countOfLikes: 0,
-      };
-      this._state.profilePage.posts.push(post);
-      this._state.profilePage.newPostText = "";
-      this._renderPage(this._state);
-
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-
-      this._state.profilePage.newPostText = action.newText;
-      this._renderPage(this._state);
-
-    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-
-      this._state.dialogsPage.newMessageText = action.message;
-      this._renderPage(this._state);
-
-    } else if (action.type === ADD_MESSAGE) {
-
-      const message = {
-        id: this._state.dialogsPage.messages.length + 1,
-        message: this._state.dialogsPage.newMessageText,
-      };
-      this._state.dialogsPage.messages.push(message);
-      this._state.dialogsPage.newMessageText = "";
-      this._renderPage(this._state);
-      
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._renderPage(this._state);
   },
 };
-
-export function addPostActionCreator() {
-  return {
-    type: ADD_POST,
-  };
-}
-
-export function updateNewPostActionCreator(text) {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text,
-  };
-}
-
-export function addNewMessage() {
-  return {
-    type: ADD_MESSAGE,
-  };
-}
-
-export function updateNewMessageTextActionCreator(text) {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    message: text,
-  };
-}
 
 window.state = store;
 export default store;
