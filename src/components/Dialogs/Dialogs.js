@@ -5,14 +5,14 @@ import Message from "./Message/Message";
 import NewMessage from "./NewMessage/NewMessage";
 
 function Dialogs(props) {
-  const dialogs = props.dialogs.map((dialog) => (
+  const dialogs = props.dialogsPage.dialogs.map((dialog) => (
     <Dialog key={dialog.id} state={dialog} />
   ));
 
-  const messages = props.messages.map((message) => (
+  const messages = props.dialogsPage.messages.map((message) => (
     <Message key={message.id} state={message} />
   ));
-
+  
   return (
     <div className={s.dialogsWrapper}>
       <div className={s.dialogsTitle}>Dialogs</div>
@@ -20,7 +20,7 @@ function Dialogs(props) {
       <div className={s.messageSide}>
         <div className={s.messageContainer}>{messages}</div>
         <NewMessage
-          newMessageText={props.newMessageText}
+          newMessageText={props.dialogsPage.newMessageText}
           createNewMessage={props.createNewMessage}
           changeNewMessageText={props.changeNewMessageText}
         />

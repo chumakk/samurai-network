@@ -7,7 +7,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer.js";
 import News from "./components/News/News.js";
 import Music from "./components/Music/Music.js";
 import Settings from "./components/Settings/Settings.js";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 // Решить проблему со стилизацией в файлах App.css, Dialogs.css
 function App(props) {
   return (
@@ -15,10 +15,10 @@ function App(props) {
       <Header />
       <Nav />
       <div className="app-content-wrapper">
-        <Route path="/profile" render={() => <Profile store={props.store} />} />
+        <Route path="/profile" render={() => <Profile />} />
         <Route
           path="/dialogs"
-          render={() => <DialogsContainer store={props.store} />}
+          render={() => <DialogsContainer/>}
         />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
