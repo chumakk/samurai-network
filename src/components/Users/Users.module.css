@@ -1,0 +1,13 @@
+.showMoreButtonWrapper{
+    text-align: center;
+
+    padding: 20px 0 40px;
+}
+
+.showMoreButton{
+    font-size:20px;
+
+    padding:10px 15px;
+
+    cursor:pointer;
+}

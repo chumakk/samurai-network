@@ -26,6 +26,9 @@ function Nav() {
         </NavLink>
       </div>
       <div>
+        <NavLink to="/users" activeClassName={s.active}>Find User</NavLink>
+      </div>
+      <div>
         <NavLink to="/settings" activeClassName={s.active}>
           Settings
         </NavLink>

@@ -6,10 +6,11 @@ import Profile from "./components/Profile/Profile.js";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.js";
 import News from "./components/News/News.js";
 import Music from "./components/Music/Music.js";
+import UsersContainer from "./components/Users/UsersContainer";
 import Settings from "./components/Settings/Settings.js";
 import { Route } from "react-router-dom";
 // Решить проблему со стилизацией в файлах App.css, Dialogs.css
-function App(props) {
+function App() {
   return (
     <div className="app-container">
       <Header />
@@ -22,6 +23,7 @@ function App(props) {
         />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
+        <Route exact path="/users" component={UsersContainer} />
         <Route path="/settings" component={Settings} />
       </div>
     </div>

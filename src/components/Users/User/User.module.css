@@ -1,0 +1,65 @@
+.wrapper {
+  padding: 10px;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
+}
+.avatar {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+}
+
+.followButtonWrapper,
+.avatarWrapper {
+  text-align: center;
+}
+
+.followButton {
+  cursor: pointer;
+}
+
+.description {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  padding: 10px;
+
+  border: 1px solid #c0c0c0;
+  border-radius: 10px;
+}
+.nameWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+.name {
+  align-self: start;
+}
+
+.status {
+  align-self: end;
+}
+
+.userLocation {
+  align-self: center;
+}
+.country {
+  margin-bottom: 10px;
+}
+.city {
+}
+
+.name,
+.country,
+.city {
+  font-size: 20px;
+  font-weight: 600;
+}
