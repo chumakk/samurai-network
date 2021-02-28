@@ -17,7 +17,7 @@ function User(props) {
   
   return (
     <div className={s.wrapper}>
-      <NavLink className={s.link} to="/users/1">
+      <NavLink className={s.link} to={`/profile/${props.user.id}`}>
         <div className={s.container}>
           <div className={s.userFollow}>
             <div className={s.avatarWrapper}>

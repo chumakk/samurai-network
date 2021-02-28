@@ -3,7 +3,10 @@ const UNSUBSCRIBE = "UNSUBSCRIBE";
 const SET_USERS = "SET_USERS";
 const SET_TOTAL_USERS = "SET_TOTAL_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const ADD_PAGE = "ADD_PAGE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const ADD_ONE_PAGE_USERS = "ADD_ONE_PAGE_USERS";
+
 // const initialState = {
 //   users: [
 //     {
@@ -46,7 +49,7 @@ const initialState = {
   users: [],
   usersOnPage: 5,
   totalUsers: 0,
-  currentPage: 1,
+  currentPage: [1],
   isFetching: false,
 };
 
@@ -83,10 +86,17 @@ function usersReducer(state = initialState, action) {
       return { ...state, totalUsers: action.totalUsers };
 
     case SET_CURRENT_PAGE:
-      return { ...state, currentPage: action.currentPage };
+      return { ...state, currentPage: [action.currentPage] };
 
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
+
+    case ADD_PAGE:
+      return { ...state, currentPage: [...state.currentPage, action.page] };
+
+    case ADD_ONE_PAGE_USERS:
+      return { ...state, users: [...state.users, ...action.users] };
+
     default:
       return state;
   }
@@ -131,6 +141,20 @@ export const toggleIsFetchingAC = (isFetching) => {
   return {
     type: TOGGLE_IS_FETCHING,
     isFetching: isFetching,
+  };
+};
+
+export const addPageAC = (page) => {
+  return {
+    type: ADD_PAGE,
+    page,
+  };
+};
+
+export const addOnePageUsersAC = (users) => {
+  return {
+    type: ADD_ONE_PAGE_USERS,
+    users,
   };
 };
 

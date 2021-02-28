@@ -1,7 +1,17 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
+import Preloader from "../../common/Preloader/Preloader"
 
-export function ProfileInfo() {
+export function ProfileInfo(props) {
+  if (!props.profile) {
+    return <Preloader />;
+  }
+  const contacts = [];
+  for (let key in props.profile.contacts) {
+    if (props.profile.contacts[key]) {
+      contacts.push(`${key} ${props.profile.contacts[key]} `);
+    }
+  }
   return (
     <div>
       <div>
@@ -10,7 +20,27 @@ export function ProfileInfo() {
           alt="start-image"
         />
       </div>
-      <div className={s.descriptionBlock}>ava + desc</div>
+      <div className={s.descriptionBlock}>
+        <div className={s.avatar}>
+          <img src={props.profile.photos.large} alt="avatar" />
+        </div>
+        <div>
+          {`Name: ${props.profile.fullName}`}
+        </div>
+        <div>
+          {`Status: ${props.profile.aboutMe}`}
+        </div>
+        <div>
+          <span>Search job: </span>{props.profile.lookingForAJob == true ? "search": "no search"}
+        </div>
+        <div>
+          {`WorkStatus: ${props.profile.lookingForAJobDescription}`}
+        </div>
+        <div>
+          <span>Контакты: </span>
+          {contacts}
+        </div>
+      </div>
     </div>
   );
 }
