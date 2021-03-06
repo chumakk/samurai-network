@@ -1,6 +1,9 @@
+import API from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
+const SET_CURRENT_URL = "SET_CURRENT_URL";
 
 const initialState = {
   posts: [
@@ -11,6 +14,7 @@ const initialState = {
   ],
   newPostText: "",
   profile: null,
+  prevURL: null,
 };
 
 function profileReducer(state = initialState, action) {
@@ -36,6 +40,9 @@ function profileReducer(state = initialState, action) {
       return { ...state, profile: action.profile };
     }
 
+    case SET_CURRENT_URL:
+      return { ...state, prevURL: action.url };
+
     default:
       return state;
   }
@@ -60,5 +67,42 @@ export function setProfileInfoAC(profile) {
     profile,
   };
 }
+
+export function setCurrentURL(url) {
+  return {
+    type: SET_CURRENT_URL,
+    url,
+  };
+}
+
+export const getStartComponentProfile = (url, userId, profile) => (
+  dispatch
+) => {
+  if (userId) {
+    API.getProfile(userId).then((data) => dispatch(setProfileInfoAC(data)));
+  }
+  if (url === "/profile" && profile) {
+    dispatch(setProfileInfoAC(profile));
+  }
+  dispatch(setCurrentURL(url));
+};
+
+export const getUpdatedComponentProfile = (
+  prevURL,
+  currentURL,
+  userId,
+  profile,
+  authProfile
+) => (dispatch) => {
+  if (prevURL !== currentURL || profile === null) {
+    if (userId) {
+      API.getProfile(userId).then((data) => dispatch(setProfileInfoAC(data)));
+    }
+    if (currentURL === "/profile" && authProfile) {
+      dispatch(setProfileInfoAC(authProfile));
+    }
+    dispatch(setCurrentURL(currentURL));
+  }
+};
 
 export default profileReducer;

@@ -1,14 +1,18 @@
 .header {
   grid-area: h;
   display: grid;
-  grid-template-columns: 40px 1fr 40px;
+  grid-template-columns: 150px 1fr 150px;
   padding: 5px 10px;
   background: #4473ff;
 }
 .header h1 {
   text-align: center;
 }
-.header a {
+
+.header a img {
   display: inline-block;
   width: 40px;
 }
+
+
+

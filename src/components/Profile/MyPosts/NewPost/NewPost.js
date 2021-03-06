@@ -7,12 +7,10 @@ function NewPost(props) {
 
   function onCreatePost() {
     props.createPost();
-    // props.dispatch(addPostActionCreator());
   }
   function onChangeNewPost() {
     const text = newref.current.value;
     props.changeNewPost(text);
-    // props.dispatch(updateNewPostActionCreator(text));
   }
 
   return (

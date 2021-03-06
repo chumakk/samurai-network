@@ -7,8 +7,9 @@ function Users(props) {
     <User
       key={u.id}
       user={u}
-      subscribe={props.subscribe}
-      unsubscribe={props.unsubscribe}
+      usersInProccess = {props.usersInProccess}
+      followThunk = {props.followThunk}
+      unfollowThunk = {props.unfollowThunk}
     />
   ));
 
@@ -20,7 +21,7 @@ function Users(props) {
       <span
         key={i}
         className={
-          props.currentPage.indexOf(i) !== -1
+          props.currentPages.indexOf(i) !== -1
             ? `${s.pageButton} ${s.selected}`
             : s.pageButton
         }

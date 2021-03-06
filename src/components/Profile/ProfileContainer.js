@@ -1,17 +1,36 @@
 import React from "react";
 import Profile from "./Profile";
-import { setProfileInfoAC } from "../../state/profile-reducer";
+import {
+  setProfileInfoAC,
+  getStartComponentProfile,
+  getUpdatedComponentProfile,
+} from "../../state/profile-reducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import * as axios from "axios";
 
 class ProfileComponent extends React.Component {
   componentDidMount() {
-    const userId = this.props.match.params.userId;
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((response) => this.props.setProfileInfo(response.data));
+    this.props.getStartComponentProfile(
+      this.props.match.url,
+      this.props.match.params.userId,
+      this.props.authProfile
+    );
   }
+
+  componentDidUpdate() {
+    this.props.getUpdatedComponentProfile(
+      this.props.prevURL,
+      this.props.match.url,
+      this.props.match.params.userId,
+      this.props.profile,
+      this.props.authProfile
+    );
+  }
+
+  componentWillUnmount() {
+    this.props.setProfileInfo(null);
+  }
+
   render() {
     return <Profile {...this.props} />;
   }
@@ -20,6 +39,8 @@ class ProfileComponent extends React.Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
+    authProfile: state.auth.authProfile,
+    prevURL: state.profilePage.prevURL,
   };
 };
 
@@ -27,6 +48,26 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setProfileInfo: (profile) => {
       dispatch(setProfileInfoAC(profile));
+    },
+    getStartComponentProfile: (url, userId, profile) => {
+      dispatch(getStartComponentProfile(url, userId, profile));
+    },
+    getUpdatedComponentProfile: (
+      prevURL,
+      currentURL,
+      userId,
+      profile,
+      authProfile
+    ) => {
+      dispatch(
+        getUpdatedComponentProfile(
+          prevURL,
+          currentURL,
+          userId,
+          profile,
+          authProfile
+        )
+      );
     },
   };
 };

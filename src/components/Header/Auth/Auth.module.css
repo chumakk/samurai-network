@@ -1,0 +1,12 @@
+.auth {
+  text-align: center;
+  align-self: center;
+}
+.auth a {
+  color: white;
+  text-decoration: none;
+}
+
+.auth a:hover{
+    color:#ccc;
+  }

@@ -4,17 +4,16 @@ import { NavLink } from "react-router-dom";
 import defaultAvatar from "../../../assets/images/defaultAvatar.png";
 
 function User(props) {
-
   function onSubscribe(e, userId) {
     e.preventDefault();
-    props.subscribe(userId);
+    props.followThunk(userId);
   }
 
   function onUnubscribe(e, userId) {
     e.preventDefault();
-    props.unsubscribe(userId);
+    props.unfollowThunk(userId);
   }
-  
+
   return (
     <div className={s.wrapper}>
       <NavLink className={s.link} to={`/profile/${props.user.id}`}>
@@ -36,6 +35,9 @@ function User(props) {
                 <button
                   className={s.followButton}
                   onClick={(e) => onUnubscribe(e, props.user.id)}
+                  disabled={props.usersInProccess.some(
+                    (id) => id === props.user.id
+                  )}
                 >
                   unsubscribe
                 </button>
@@ -43,6 +45,9 @@ function User(props) {
                 <button
                   className={s.followButton}
                   onClick={(e) => onSubscribe(e, props.user.id)}
+                  disabled={props.usersInProccess.some(
+                    (id) => id === props.user.id
+                  )}
                 >
                   subscribe
                 </button>

@@ -1,3 +1,5 @@
+import API from "../api/api";
+
 const SUBSCRIBE = "SUBSCRIBE";
 const UNSUBSCRIBE = "UNSUBSCRIBE";
 const SET_USERS = "SET_USERS";
@@ -6,6 +8,7 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const ADD_PAGE = "ADD_PAGE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const ADD_ONE_PAGE_USERS = "ADD_ONE_PAGE_USERS";
+const TOGGLE_USERS_IN_PROCESS = "TOGGLE_USERS_IN_PROCESS";
 
 // const initialState = {
 //   users: [
@@ -49,8 +52,9 @@ const initialState = {
   users: [],
   usersOnPage: 5,
   totalUsers: 0,
-  currentPage: [1],
+  currentPages: [1],
   isFetching: false,
+  usersInProccess: [],
 };
 
 function usersReducer(state = initialState, action) {
@@ -59,7 +63,7 @@ function usersReducer(state = initialState, action) {
       return {
         ...state,
         users: state.users.map((u) => {
-          if (u.id == action.userId) {
+          if (u.id === action.userId) {
             return { ...u, followed: true };
           }
           return u;
@@ -69,7 +73,7 @@ function usersReducer(state = initialState, action) {
       return {
         ...state,
         users: state.users.map((u) => {
-          if (u.id == action.userId) {
+          if (u.id === action.userId) {
             return { ...u, followed: false };
           }
           return u;
@@ -86,16 +90,24 @@ function usersReducer(state = initialState, action) {
       return { ...state, totalUsers: action.totalUsers };
 
     case SET_CURRENT_PAGE:
-      return { ...state, currentPage: [action.currentPage] };
+      return { ...state, currentPages: [action.currentPage] };
 
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
 
     case ADD_PAGE:
-      return { ...state, currentPage: [...state.currentPage, action.page] };
+      return { ...state, currentPages: [...state.currentPages, action.page] };
 
     case ADD_ONE_PAGE_USERS:
       return { ...state, users: [...state.users, ...action.users] };
+
+    case TOGGLE_USERS_IN_PROCESS:
+      return {
+        ...state,
+        usersInProccess: action.toggle
+          ? [...state.usersInProccess, action.userId]
+          : state.usersInProccess.filter((id) => id !== action.userId),
+      };
 
     default:
       return state;
@@ -156,6 +168,67 @@ export const addOnePageUsersAC = (users) => {
     type: ADD_ONE_PAGE_USERS,
     users,
   };
+};
+
+export const toggleUsersInProcess = (userId, toggle) => {
+  return {
+    type: TOGGLE_USERS_IN_PROCESS,
+    userId,
+    toggle,
+  };
+};
+
+export const followThunkCreator = (userId) => (dispatch) => {
+  dispatch(toggleUsersInProcess(userId, true));
+  API.follow(userId).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(subscribeAC(userId));
+      dispatch(toggleUsersInProcess(userId, false));
+    }
+  });
+};
+
+export const unfollowThunkCreator = (userId) => (dispatch) => {
+  dispatch(toggleUsersInProcess(userId, true));
+  API.unfollow(userId).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(unsubscribeAC(userId));
+    }
+    dispatch(toggleUsersInProcess(userId, false));
+  });
+};
+
+export function getUsersTC(currentPages, usersOnPage) {
+  return function getUsers(dispatch) {
+    dispatch(toggleIsFetchingAC(true));
+    const currentPage = currentPages[0];
+    API.getUsers(currentPage, usersOnPage).then((data) => {
+      dispatch(toggleIsFetchingAC(false));
+      dispatch(setUsersAC(data.items));
+      dispatch(setTotalUsersAC(data.totalCount));
+    });
+  };
+}
+
+export const getUsersOnOnePageTC = (number, usersOnPage) => (dispatch) => {
+  dispatch(toggleIsFetchingAC(true));
+  dispatch(setCurrentPageAC(number));
+  API.getUsers(number, usersOnPage).then((data) => {
+    dispatch(toggleIsFetchingAC(false));
+    dispatch(setUsersAC(data.items));
+  });
+};
+
+export const shoMoreTC = (currentPages, usersOnPage) => (dispatch) => {
+  dispatch(toggleIsFetchingAC(true));
+
+  const nextPage = currentPages[currentPages.length - 1] + 1;
+  dispatch(addPageAC(nextPage));
+
+  API.getUsers(nextPage, usersOnPage).then((data) => {
+    dispatch(toggleIsFetchingAC(false));
+    dispatch(addOnePageUsersAC(data.items));
+  });
 };
 
 export default usersReducer;
