@@ -9,6 +9,8 @@ import {
   getUsersOnOnePageTC,
   shoMoreTC,
 } from "../../state/users-reducer";
+import { compose } from "redux";
+import withAuthRedirect from "../HOC/withAuthRedirect";
 
 class UsersApiContainer extends React.Component {
   constructor(props) {
@@ -85,9 +87,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, mapDispatchToProps)
 )(UsersApiContainer);
-
-export default UsersContainer;

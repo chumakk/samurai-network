@@ -7,6 +7,8 @@ import {
 } from "../../state/profile-reducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { compose } from "redux";
+import WithAuthRedirect from "../HOC/withAuthRedirect";
 
 class ProfileComponent extends React.Component {
   componentDidMount() {
@@ -22,7 +24,6 @@ class ProfileComponent extends React.Component {
       this.props.prevURL,
       this.props.match.url,
       this.props.match.params.userId,
-      this.props.profile,
       this.props.authProfile
     );
   }
@@ -72,7 +73,8 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ProfileComponent));
+export default compose(
+  WithAuthRedirect,
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(ProfileComponent);

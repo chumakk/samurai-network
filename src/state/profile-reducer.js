@@ -91,15 +91,16 @@ export const getUpdatedComponentProfile = (
   prevURL,
   currentURL,
   userId,
-  profile,
   authProfile
 ) => (dispatch) => {
-  if (prevURL !== currentURL || profile === null) {
+  if (prevURL !== currentURL) {
     if (userId) {
       API.getProfile(userId).then((data) => dispatch(setProfileInfoAC(data)));
     }
-    if (currentURL === "/profile" && authProfile) {
-      dispatch(setProfileInfoAC(authProfile));
+    if (currentURL === "/profile") {
+      authProfile
+        ? dispatch(setProfileInfoAC(authProfile))
+        : dispatch(setProfileInfoAC(null));
     }
     dispatch(setCurrentURL(currentURL));
   }
