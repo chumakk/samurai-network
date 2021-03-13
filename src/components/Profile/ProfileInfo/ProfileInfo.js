@@ -2,8 +2,9 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import avatar from "../../../assets/images/defaultAvatar.png";
 import Preloader from "../../common/Preloader/Preloader";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
-export function ProfileInfo(props) {
+function ProfileInfo(props) {
   if (!props.profile) {
     return <Preloader />;
   }
@@ -31,8 +32,9 @@ export function ProfileInfo(props) {
             <img src={avatar} alt="avatar" />
           )}
         </div>
+        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
         <div>{`Name: ${props.profile.fullName}`}</div>
-        <div>{`Status: ${props.profile.aboutMe}`}</div>
+        <div>{`Desc: ${props.profile.aboutMe}`}</div>
         <div>
           <span>Search job: </span>
           {props.profile.lookingForAJob === true ? "search" : "no search"}

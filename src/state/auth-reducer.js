@@ -1,4 +1,4 @@
-import API from "../api/api";
+import { API, profileAPI } from "../api/api";
 
 const SET_IS_AUTH = "SET_IS_AUTH";
 const SET_AUTH_DATA = "SET_AUTH_DATA";
@@ -41,7 +41,7 @@ export const authTC = () => (dispatch) => {
     if (response.data.resultCode === 0) {
       dispatch(setAuthData(response.data.data));
       dispatch(setIsAuth(true));
-      API.getProfile(response.data.data.id).then((data) => {
+      profileAPI.getProfile(response.data.data.id).then((data) => {
         dispatch(setAuthProfile(data));
       });
     }

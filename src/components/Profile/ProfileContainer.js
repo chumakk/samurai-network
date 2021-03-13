@@ -2,8 +2,10 @@ import React from "react";
 import Profile from "./Profile";
 import {
   setProfileInfoAC,
-  getStartComponentProfile,
-  getUpdatedComponentProfile,
+  setCurrentURL,
+  getComponentProfile,
+  getStatus,
+  updateStatus,
 } from "../../state/profile-reducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -12,20 +14,31 @@ import WithAuthRedirect from "../HOC/withAuthRedirect";
 
 class ProfileComponent extends React.Component {
   componentDidMount() {
-    this.props.getStartComponentProfile(
+    this.props.getComponentProfile(
       this.props.match.url,
       this.props.match.params.userId,
       this.props.authProfile
     );
+    this.props.getStatus(
+      this.props.match.params.userId || this.props.authProfile.userId
+    );
+    setCurrentURL(this.props.match.url);
   }
 
   componentDidUpdate() {
-    this.props.getUpdatedComponentProfile(
-      this.props.prevURL,
-      this.props.match.url,
-      this.props.match.params.userId,
-      this.props.authProfile
-    );
+    if (this.props.prevURL !== this.props.match.url) {
+      this.props.getComponentProfile(
+        this.props.match.url,
+        this.props.match.params.userId,
+        this.props.authProfile
+      );
+
+      this.props.getStatus(
+        this.props.match.params.userId || this.props.authProfile.userId
+      );
+
+      setCurrentURL(this.props.match.url);
+    }
   }
 
   componentWillUnmount() {
@@ -42,6 +55,7 @@ const mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     authProfile: state.auth.authProfile,
     prevURL: state.profilePage.prevURL,
+    status: state.profilePage.status,
   };
 };
 
@@ -50,25 +64,17 @@ const mapDispatchToProps = (dispatch) => {
     setProfileInfo: (profile) => {
       dispatch(setProfileInfoAC(profile));
     },
-    getStartComponentProfile: (url, userId, profile) => {
-      dispatch(getStartComponentProfile(url, userId, profile));
+    setCurrentURL: (url) => {
+      dispatch(setCurrentURL(url));
     },
-    getUpdatedComponentProfile: (
-      prevURL,
-      currentURL,
-      userId,
-      profile,
-      authProfile
-    ) => {
-      dispatch(
-        getUpdatedComponentProfile(
-          prevURL,
-          currentURL,
-          userId,
-          profile,
-          authProfile
-        )
-      );
+    getComponentProfile: (url, userId, profile) => {
+      dispatch(getComponentProfile(url, userId, profile));
+    },
+    getStatus: (userId) => {
+      dispatch(getStatus(userId));
+    },
+    updateStatus: (status) => {
+      dispatch(updateStatus(status));
     },
   };
 };

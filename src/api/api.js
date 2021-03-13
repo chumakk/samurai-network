@@ -8,13 +8,9 @@ const instance = axios.create({
   },
 });
 
-const API = {
+export const API = {
   authMe: () => {
     return instance.get(`auth/me`);
-  },
-
-  getProfile: (id) => {
-    return instance.get(`profile/${id}`).then((response) => response.data);
   },
 
   getUsers: (currentPage, usersOnPage) => {
@@ -24,16 +20,32 @@ const API = {
   },
 
   follow: (userId) => {
-    return instance.post(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
-    );
+    return instance.post(`follow/${userId}`);
   },
 
   unfollow: (userId) => {
-    return instance.delete(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
-    );
+    return instance.delete(`follow/${userId}`);
   },
 };
 
-export default API;
+export const profileAPI = {
+  getProfile: (id) => {
+    return instance.get(`profile/${id}`).then((response) => response.data);
+  },
+
+  getStatus: (userId) => {
+    return instance.get(`profile/status/${userId}`);
+  },
+
+  setStatus: (status) => {
+    return instance
+      .put("profile/status", {
+        status: status,
+      })
+      .then((response) => {
+        if (response.resultCode === 0) {
+          return response;
+        }
+      });
+  },
+};

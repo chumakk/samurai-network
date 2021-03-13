@@ -1,9 +1,10 @@
-import API from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const SET_CURRENT_URL = "SET_CURRENT_URL";
+const SET_STATUS = "SET_STATUS";
 
 const initialState = {
   posts: [
@@ -14,6 +15,7 @@ const initialState = {
   ],
   newPostText: "",
   profile: null,
+  status: null,
   prevURL: null,
 };
 
@@ -42,6 +44,9 @@ function profileReducer(state = initialState, action) {
 
     case SET_CURRENT_URL:
       return { ...state, prevURL: action.url };
+
+    case SET_STATUS:
+      return { ...state, status: action.status };
 
     default:
       return state;
@@ -75,35 +80,36 @@ export function setCurrentURL(url) {
   };
 }
 
-export const getStartComponentProfile = (url, userId, profile) => (
+export const getComponentProfile = (url, userId, profile) => (
   dispatch
 ) => {
   if (userId) {
-    API.getProfile(userId).then((data) => dispatch(setProfileInfoAC(data)));
+    profileAPI
+      .getProfile(userId)
+      .then((data) => dispatch(setProfileInfoAC(data)));
   }
   if (url === "/profile" && profile) {
     dispatch(setProfileInfoAC(profile));
   }
-  dispatch(setCurrentURL(url));
 };
 
-export const getUpdatedComponentProfile = (
-  prevURL,
-  currentURL,
-  userId,
-  authProfile
-) => (dispatch) => {
-  if (prevURL !== currentURL) {
-    if (userId) {
-      API.getProfile(userId).then((data) => dispatch(setProfileInfoAC(data)));
-    }
-    if (currentURL === "/profile") {
-      authProfile
-        ? dispatch(setProfileInfoAC(authProfile))
-        : dispatch(setProfileInfoAC(null));
-    }
-    dispatch(setCurrentURL(currentURL));
-  }
+export const setStatus = (status) => {
+  return {
+    type: SET_STATUS,
+    status,
+  };
+};
+
+export const getStatus = (userId) => (dispatch) => {
+  profileAPI
+    .getStatus(userId)
+    .then((response) => dispatch(setStatus(response.data)));
+};
+
+export const updateStatus = (status) => (dispatch) => {
+  profileAPI
+    .setStatus(status)
+    .then((response) => dispatch(setStatus(status)));
 };
 
 export default profileReducer;
