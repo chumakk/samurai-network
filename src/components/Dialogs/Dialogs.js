@@ -20,9 +20,7 @@ function Dialogs(props) {
       <div className={s.messageSide}>
         <div className={s.messageContainer}>{messages}</div>
         <NewMessage
-          newMessageText={props.dialogsPage.newMessageText}
           createNewMessage={props.createNewMessage}
-          changeNewMessageText={props.changeNewMessageText}
         />
       </div>
     </div>

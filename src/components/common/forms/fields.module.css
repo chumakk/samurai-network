@@ -1,0 +1,21 @@
+.inputContainer,
+.inputContainerError {
+  display: grid;
+  grid-template-columns: auto 250px;
+  align-items: center;
+}
+.inputContainer,
+.inputContainerError,
+.checkboxContainer {
+  margin-bottom: 10px;
+}
+
+.inputContainerError {
+  color: red;
+}
+input:focus {
+  outline: none;
+}
+.inputContainerError .input {
+  border: 1px solid red;
+}

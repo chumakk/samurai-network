@@ -1,29 +1,33 @@
 import React from "react";
+import { Field, Form } from "react-final-form";
+import { textarea } from "../../../common/forms/fields";
 import s from "./NewPost.module.css";
 
-
 function NewPost(props) {
-  let newref = React.createRef();
-
-  function onCreatePost() {
-    props.createPost();
-  }
-  function onChangeNewPost() {
-    const text = newref.current.value;
-    props.changeNewPost(text);
+  function onCreatePost(newpost) {
+    props.createPost(newpost.message);
   }
 
   return (
-    <div>
-      <textarea
-        onChange={onChangeNewPost}
-        value={props.newPostText}
-        ref={newref}
-      ></textarea>
-      <div>
-        <button onClick={onCreatePost}>Add post</button>
-      </div>
-    </div>
+    <Form onSubmit={onCreatePost}>
+      {(props) => (
+        <form
+          onSubmit={(e) => {
+            props.handleSubmit(e);
+            props.form.reset();
+          }}
+        >
+          <Field
+            name="message"
+            component={textarea}
+            placeholder="How are you?"
+          />
+          <div>
+            <button>Add post</button>
+          </div>
+        </form>
+      )}
+    </Form>
   );
 }
 

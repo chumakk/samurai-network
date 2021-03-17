@@ -11,8 +11,6 @@ function MyPosts(props) {
     <div className={s.postsContainer}>
       <h3 className={s.postsTitle}>My posts</h3>
       <NewPost
-        newPostText={props.newPostText}
-        changeNewPost={props.changeNewPost}
         createPost={props.createPost}
       />
       <div>{posts}</div>

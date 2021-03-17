@@ -9,6 +9,7 @@ import Music from "./components/Music/Music.js";
 import UsersContainer from "./components/Users/UsersContainer";
 import Settings from "./components/Settings/Settings.js";
 import { Route } from "react-router-dom";
+import Login from "./components/Login/Login.js";
 // Решить проблему со стилизацией в файлах App.css, Dialogs.css
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <HeaderContainer />
       <Nav />
       <div className="app-content-wrapper">
+        <Route path="/login" component={Login} />
         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
         <Route
           path="/dialogs"

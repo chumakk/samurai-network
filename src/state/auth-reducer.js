@@ -1,4 +1,4 @@
-import { API, profileAPI } from "../api/api";
+import { authAPI, profileAPI } from "../api/api";
 
 const SET_IS_AUTH = "SET_IS_AUTH";
 const SET_AUTH_DATA = "SET_AUTH_DATA";
@@ -37,13 +37,35 @@ export const setAuthProfile = (profile) => {
 };
 
 export const authTC = () => (dispatch) => {
-  API.authMe().then((response) => {
+  authAPI.authMe().then((response) => {
     if (response.data.resultCode === 0) {
       dispatch(setAuthData(response.data.data));
       dispatch(setIsAuth(true));
       profileAPI.getProfile(response.data.data.id).then((data) => {
         dispatch(setAuthProfile(data));
       });
+    }
+  });
+};
+
+export const loginTC = (email, password, rememberMe) => (dispatch) => {
+  authAPI.login(email, password, rememberMe).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(authTC());
+    } else {
+      alert("something wrong with login");
+    }
+  });
+};
+
+export const logoutTC = () => (dispatch) => {
+  authAPI.logout().then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(setAuthData(null));
+      dispatch(setIsAuth(false));
+      dispatch(setAuthProfile(null));
+    } else {
+      alert("something wrong with logout");
     }
   });
 };

@@ -11,7 +11,7 @@ function Header(props) {
         <img src={icon} alt="icon" />
       </NavLink>
       <h1>Social-Network.samurai</h1>
-      <Auth authData={props.authData} />
+      <Auth authData={props.authData} logout={props.logout} />
     </header>
   );
 }

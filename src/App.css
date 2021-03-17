@@ -15,6 +15,7 @@
     grid-area: c;
     /* overflow: hidden; */
     color: #3f3f3f;
+    position: relative;
 }
 /* .app-content-wrapper > *{
   height:100%;

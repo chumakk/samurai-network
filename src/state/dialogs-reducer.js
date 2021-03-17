@@ -33,21 +33,14 @@ const initialState = {
     { id: 2, message: "How are you doing?" },
     { id: 3, message: "YO" },
   ],
-  newMessageText: "",
 };
 
 function dialogsReducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_TEXT: {
-      return {
-        ...state,
-        newMessageText: action.message,
-      };
-    }
     case ADD_MESSAGE:
       const message = {
         id: state.messages.length + 1,
-        message: state.newMessageText,
+        message: action.text,
       };
 
       return {
@@ -61,9 +54,10 @@ function dialogsReducer(state = initialState, action) {
   }
 }
 
-export function addNewMessage() {
+export function addNewMessage(text) {
   return {
     type: ADD_MESSAGE,
+    text
   };
 }
 

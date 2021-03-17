@@ -49,3 +49,19 @@ export const profileAPI = {
       });
   },
 };
+
+export const authAPI = {
+  authMe: () => {
+    return instance.get(`auth/me`);
+  },
+  login(email, password, rememberMe = false) {
+    return instance.post("/auth/login", {
+      email,
+      password,
+      rememberMe,
+    }).then(response => response.data);
+  },
+  logout(){
+    return instance.post("/auth/logout").then(response => response.data)
+  }
+};

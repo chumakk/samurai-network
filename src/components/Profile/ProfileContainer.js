@@ -15,29 +15,29 @@ import WithAuthRedirect from "../HOC/withAuthRedirect";
 class ProfileComponent extends React.Component {
   componentDidMount() {
     this.props.getComponentProfile(
-      this.props.match.url,
       this.props.match.params.userId,
-      this.props.authProfile
+      this.props.authData
     );
+
     this.props.getStatus(
-      this.props.match.params.userId || this.props.authProfile.userId
+      this.props.match.params.userId || this.props.authData.id
     );
-    setCurrentURL(this.props.match.url);
+
+    this.props.setCurrentURL(this.props.match.url);
   }
 
   componentDidUpdate() {
     if (this.props.prevURL !== this.props.match.url) {
       this.props.getComponentProfile(
-        this.props.match.url,
         this.props.match.params.userId,
-        this.props.authProfile
+        this.props.authData
       );
 
       this.props.getStatus(
-        this.props.match.params.userId || this.props.authProfile.userId
+        this.props.match.params.userId || this.props.authData.id
       );
 
-      setCurrentURL(this.props.match.url);
+      this.props.setCurrentURL(this.props.match.url);
     }
   }
 
@@ -53,7 +53,7 @@ class ProfileComponent extends React.Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
-    authProfile: state.auth.authProfile,
+    authData: state.auth.authData,
     prevURL: state.profilePage.prevURL,
     status: state.profilePage.status,
   };

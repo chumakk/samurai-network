@@ -1,13 +1,14 @@
 import React from "react";
 import s from "./Auth.module.css";
+import {authAPI} from "../../../api/api"
 import { NavLink } from "react-router-dom";
 
-const Login = (props) => {
+const Auth = (props) => {
   if (props.authData) {
     return (
       <div className={s.auth}>
         <div> hi, {props.authData.login}</div>
-        <NavLink to="/logout">logout</NavLink>
+        <div onClick={()=> props.logout()}>logout</div>
       </div>
     );
   }
@@ -18,4 +19,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Auth;
