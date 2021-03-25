@@ -4,12 +4,14 @@ import dialogsReducer from "./dialogs-reducer.js";
 import usersReducer from "./users-reducer.js";
 import authReducer from "./auth-reducer.js";
 import thunkMiddleware from "redux-thunk";
+import appReducer from "./app-reducer.js";
 
 const reducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,
   auth: authReducer,
+  app: appReducer
 });
 
 const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

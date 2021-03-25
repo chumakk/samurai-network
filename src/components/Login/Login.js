@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { loginTC } from "../../state/auth-reducer";
+import { authTC } from "../../state/auth-reducer";
 import { Field, Form } from "react-final-form";
 import {
   composeValidators,
@@ -9,11 +9,25 @@ import {
 } from "../common/forms/validators";
 import { Redirect } from "react-router-dom";
 import { checkbox, input } from "../common/forms/fields";
+import { authAPI } from "../../api/api";
+import { FORM_ERROR } from "final-form";
 import s from "./Login.module.css";
 
 function Login(props) {
-  const onSubmit = (formObject) => {
-    props.loginTC(formObject.email, formObject.password, formObject.rememberMe);
+  const onSubmit = async (formObject) => {
+
+    const data = await authAPI.login(
+      formObject.email,
+      formObject.password,
+      formObject.rememberMe
+    );
+
+    if (data.resultCode === 0) {
+      props.authTC();
+    } else {
+      return { [FORM_ERROR]: data.messages[0] };
+    }
+    
   };
 
   if (props.isAuth) {
@@ -46,10 +60,13 @@ function Login(props) {
                 type="checkbox"
                 component={checkbox}
               />
+              {props.submitError && (
+                <div className={s.error}>{props.submitError}</div>
+              )}
               <div className={s.buttonWrapper}>
                 <button
                   type="submit"
-                  disabled={props.hasValidationErrors}
+                  disabled={props.hasValidationErrors || props.submitting}
                   className={s.submitButton}
                 >
                   Submit
@@ -68,5 +85,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  loginTC,
+  authTC,
 })(Login);

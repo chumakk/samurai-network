@@ -44,3 +44,7 @@ input[type="checkbox"] {
 .submitButton:disabled {
   background: #8292c0;
 }
+
+.error {
+  color: red;
+}

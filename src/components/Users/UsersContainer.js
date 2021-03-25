@@ -11,6 +11,7 @@ import {
 } from "../../state/users-reducer";
 import { compose } from "redux";
 import withAuthRedirect from "../HOC/withAuthRedirect";
+import { getUsers } from "../../state/selectors";
 
 class UsersApiContainer extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class UsersApiContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
+    users: getUsers(state),
     currentPages: state.usersPage.currentPages,
     usersOnPage: state.usersPage.usersOnPage,
     totalUsers: state.usersPage.totalUsers,

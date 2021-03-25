@@ -37,23 +37,13 @@ export const setAuthProfile = (profile) => {
 };
 
 export const authTC = () => (dispatch) => {
-  authAPI.authMe().then((response) => {
+  return authAPI.authMe().then((response) => {
     if (response.data.resultCode === 0) {
       dispatch(setAuthData(response.data.data));
       dispatch(setIsAuth(true));
       profileAPI.getProfile(response.data.data.id).then((data) => {
         dispatch(setAuthProfile(data));
       });
-    }
-  });
-};
-
-export const loginTC = (email, password, rememberMe) => (dispatch) => {
-  authAPI.login(email, password, rememberMe).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(authTC());
-    } else {
-      alert("something wrong with login");
     }
   });
 };
