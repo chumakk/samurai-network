@@ -1,36 +1,18 @@
 import React from "react";
 import s from "./Users.module.css";
 import User from "./User/User.js";
-import Preloder from "../common/Preloader/Preloader"; 
+import Preloder from "../common/Preloader/Preloader";
+import Paginator from "../common/Paginator/Paginator";
 function Users(props) {
   const users = props.users.map((u) => (
     <User
       key={u.id}
       user={u}
-      usersInProccess = {props.usersInProccess}
-      followThunk = {props.followThunk}
-      unfollowThunk = {props.unfollowThunk}
+      usersInProccess={props.usersInProccess}
+      followThunk={props.followThunk}
+      unfollowThunk={props.unfollowThunk}
     />
   ));
-
-  const usersPages = [];
-  const pagesCount = Math.ceil(props.totalUsers / props.usersOnPage);
-
-  for (let i = 1; i <= pagesCount; i++) {
-    usersPages.push(
-      <span
-        key={i}
-        className={
-          props.currentPages.indexOf(i) !== -1
-            ? `${s.pageButton} ${s.selected}`
-            : s.pageButton
-        }
-        onClick={() => props.selectPage(i)}
-      >
-        {`${i} `}
-      </span>
-    );
-  }
 
   return (
     <div>
@@ -38,11 +20,29 @@ function Users(props) {
       <div>{users}</div>
       {props.isFetching ? <Preloder /> : null}
       <div className={s.showMoreButtonWrapper}>
-        <button className={s.showMoreButton} onClick={props.showMore}>
+        <button
+          className={s.showMoreButton}
+          onClick={props.showMore}
+          disabled={
+            props.currentPages[props.currentPages.length - 1] *
+              props.usersOnPage >=
+            props.totalUsers
+              ? true
+              : false
+          }
+        >
           Show more
         </button>
       </div>
-      <div>{usersPages}</div>
+      <div className={s.paginatorWrapper}>
+        <Paginator
+          totalItems={props.totalUsers}
+          itemsOnPage={props.usersOnPage}
+          currentPages={props.currentPages}
+          selectPage={props.selectPage}
+          countOfPages={10}
+        />
+      </div>
     </div>
   );
 }
