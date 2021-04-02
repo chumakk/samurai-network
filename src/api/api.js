@@ -48,6 +48,17 @@ export const profileAPI = {
         }
       });
   },
+
+  setAvatar: (avatar) => {
+    const file = new FormData();
+    
+    file.append("image", avatar);
+    return instance.put("/profile/photo", file, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 export const authAPI = {
@@ -55,13 +66,15 @@ export const authAPI = {
     return instance.get(`auth/me`);
   },
   login(email, password, rememberMe = false) {
-    return instance.post("/auth/login", {
-      email,
-      password,
-      rememberMe,
-    }).then(response => response.data);
+    return instance
+      .post("/auth/login", {
+        email,
+        password,
+        rememberMe,
+      })
+      .then((response) => response.data);
   },
-  logout(){
-    return instance.post("/auth/logout").then(response => response.data)
-  }
+  logout() {
+    return instance.post("/auth/logout").then((response) => response.data);
+  },
 };

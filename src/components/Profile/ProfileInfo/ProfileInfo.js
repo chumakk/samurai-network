@@ -1,8 +1,9 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import avatar from "../../../assets/images/defaultAvatar.png";
+
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import Avatar from "./Avatar/Avatar";
 
 function ProfileInfo(props) {
   if (!props.profile) {
@@ -18,21 +19,13 @@ function ProfileInfo(props) {
 
   return (
     <div>
-      <div>
-        <img
-          src="https://images.unsplash.com/photo-1422493757035-1e5e03968f95?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1255&q=80"
-          alt="startImage"
-        />
-      </div>
       <div className={s.descriptionBlock}>
-        <div className={s.avatar}>
-          {props.profile.photos.large ? (
-            <img src={props.profile.photos.large} alt="avatar" />
-          ) : (
-            <img src={avatar} alt="avatar" />
-          )}
-        </div>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+        <Avatar photos={props.profile.photos} isOwner={props.isOwner} updateAvatar={props.updateAvatar} />
+        <ProfileStatus
+          status={props.status}
+          updateStatus={props.updateStatus}
+          isOwner={props.isOwner}
+        />
         <div>{`Name: ${props.profile.fullName}`}</div>
         <div>{`Desc: ${props.profile.aboutMe}`}</div>
         <div>

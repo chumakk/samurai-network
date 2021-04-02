@@ -38,7 +38,7 @@ function Login(props) {
         <div className={s.title}>Sing in</div>
         <Form onSubmit={onSubmit}>
           {(props) => (
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={props.handleSubmit} className={s.form}>
               <Field
                 name="email"
                 validate={composeValidators(required, isEmail)}

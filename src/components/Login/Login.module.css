@@ -11,10 +11,10 @@
   text-align: center;
   margin-bottom: 20px;
 }
-label {
+.form label {
   font-size: 24px;
 }
-input {
+.form input {
   font-family: inherit;
   color: inherit;
   font-size: 24px;
@@ -23,7 +23,7 @@ input {
   border-radius: 10px;
   border: 2px solid #c0c0c0;
 }
-input[type="checkbox"] {
+.form input[type="checkbox"] {
   width: 16px;
   height: 16px;
 }

@@ -8,7 +8,7 @@ function Profile(props) {
 
   return (
     <div className={s.profile}>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} updateAvatar={props.updateAvatar} isOwner={props.isOwner}/>
       <MyPostsContainer />
     </div>
   );

@@ -4,6 +4,7 @@ const ADD_POST = "ADD-POST";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const SET_CURRENT_URL = "SET_CURRENT_URL";
 const SET_STATUS = "SET_STATUS";
+const UPDATE_AVATAR_SUCCESS = "UPDATE_AVATAR_SUCCESS";
 
 const initialState = {
   posts: [
@@ -40,6 +41,9 @@ function profileReducer(state = initialState, action) {
 
     case SET_STATUS:
       return { ...state, status: action.status };
+
+    case UPDATE_AVATAR_SUCCESS:
+      return { ...state, profile: { ...state.profile, photos: action.photos } };
 
     default:
       return state;
@@ -82,6 +86,11 @@ export const setStatus = (status) => {
   };
 };
 
+const updateAvatarSuccess = (photos) => ({
+  type: UPDATE_AVATAR_SUCCESS,
+  photos,
+});
+
 export const getStatus = (userId) => (dispatch) => {
   profileAPI
     .getStatus(userId)
@@ -90,6 +99,11 @@ export const getStatus = (userId) => (dispatch) => {
 
 export const updateStatus = (status) => (dispatch) => {
   profileAPI.setStatus(status).then((response) => dispatch(setStatus(status)));
+};
+
+export const updateAvatar = (avatar) => async (dispatch) => {
+  const response = await profileAPI.setAvatar(avatar);
+  dispatch(updateAvatarSuccess(response.data.data.photos));
 };
 
 export default profileReducer;

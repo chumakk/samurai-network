@@ -6,6 +6,7 @@ import {
   getComponentProfile,
   getStatus,
   updateStatus,
+  updateAvatar,
 } from "../../state/profile-reducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -46,7 +47,7 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
-    return <Profile {...this.props} />;
+    return <Profile {...this.props} isOwner={!this.props.match.params.userId}  />;
   }
 }
 
@@ -76,6 +77,9 @@ const mapDispatchToProps = (dispatch) => {
     updateStatus: (status) => {
       dispatch(updateStatus(status));
     },
+    updateAvatar: (avatar) =>{
+      dispatch(updateAvatar(avatar));
+    }
   };
 };
 

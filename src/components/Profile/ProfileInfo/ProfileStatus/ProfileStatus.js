@@ -30,7 +30,9 @@ const ProfileStatus = (props) => {
       ) : (
         <div
           onClick={() => {
-            setEditStatus(true);
+            if(props.isOwner){
+              setEditStatus(true);
+            }
           }}
         >
           Status: <span>{props.status}</span>
