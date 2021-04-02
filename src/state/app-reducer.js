@@ -18,7 +18,7 @@ export const initialize = () => ({ type: INITIALIZED });
 
 export const initialization = () => (dispatch) => {
   const promise = dispatch(authTC());
-  promise.then(() => {
+  promise.finally(() => {
     dispatch(initialize());
   });
 };
