@@ -53,7 +53,7 @@ export const profileAPI = {
     const file = new FormData();
 
     file.append("image", avatar);
-    return instance.put("/profile/photo", file, {
+    return instance.put("profile/photo", file, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -61,7 +61,7 @@ export const profileAPI = {
   },
 
   updateProfile: (profile) => {
-    return instance.put("/profile", profile);
+    return instance.put("profile", profile);
   },
 };
 
@@ -69,16 +69,23 @@ export const authAPI = {
   authMe: () => {
     return instance.get(`auth/me`);
   },
-  login(email, password, rememberMe = false) {
+  login(email, password, rememberMe = false, captcha = null) {
     return instance
-      .post("/auth/login", {
+      .post("auth/login", {
         email,
         password,
         rememberMe,
+        captcha,
       })
       .then((response) => response.data);
   },
   logout() {
-    return instance.post("/auth/logout").then((response) => response.data);
+    return instance.post("auth/logout").then((response) => response.data);
+  },
+};
+
+export const secureApi = {
+  getCaptcha() {
+    return instance.get("security/get-captcha-url");
   },
 };

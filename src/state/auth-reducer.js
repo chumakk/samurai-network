@@ -1,13 +1,15 @@
-import { authAPI, profileAPI } from "../api/api";
+import { authAPI, profileAPI, secureApi } from "../api/api";
 
 const SET_IS_AUTH = "SET_IS_AUTH";
 const SET_AUTH_DATA = "SET_AUTH_DATA";
 const SET_AUTH_PROFILE = "SET_AUTH_PROFILE";
+const SET_CAPTCHA_SUCCESS = "SET_CAPTCHA_SUCCESS";
 
 const initialState = {
   isAuth: false,
   authData: null,
   authProfile: null,
+  captcha: null,
 };
 
 function authReducer(state = initialState, action) {
@@ -20,6 +22,9 @@ function authReducer(state = initialState, action) {
 
     case SET_AUTH_PROFILE:
       return { ...state, authProfile: action.profile };
+
+    case SET_CAPTCHA_SUCCESS:
+      return { ...state, captcha: action.url };
 
     default:
       return state;
@@ -35,6 +40,11 @@ export const setAuthData = (data) => {
 export const setAuthProfile = (profile) => {
   return { type: SET_AUTH_PROFILE, profile };
 };
+
+export const setCaptchaSuccess = (url) => ({
+  type: SET_CAPTCHA_SUCCESS,
+  url,
+});
 
 export const authTC = () => (dispatch) => {
   return authAPI.authMe().then((response) => {
@@ -58,6 +68,24 @@ export const logoutTC = () => (dispatch) => {
       alert("something wrong with logout");
     }
   });
+};
+
+export const loginTC = (email, password, rememberMe, captcha) => async (
+  dispatch
+) => {
+  const data = await authAPI.login(email, password, rememberMe, captcha);
+  if (data.resultCode === 0) {
+    dispatch(authTC());
+  } else if (data.resultCode === 10) {
+    dispatch(getCaptcha());
+  } else {
+    return data.messages[0];
+  }
+};
+
+export const getCaptcha = () => async (dispatch) => {
+  const req = await secureApi.getCaptcha();
+  dispatch(setCaptchaSuccess(req.data.url));
 };
 
 export default authReducer;

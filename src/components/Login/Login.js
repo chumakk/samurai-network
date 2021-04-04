@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { authTC } from "../../state/auth-reducer";
+import { loginTC } from "../../state/auth-reducer";
 import { Field, Form } from "react-final-form";
 import {
   composeValidators,
@@ -9,26 +9,28 @@ import {
 } from "../common/forms/validators";
 import { Redirect } from "react-router-dom";
 import { Checkbox, Input } from "../common/forms/fields";
-import { authAPI } from "../../api/api";
 import { FORM_ERROR } from "final-form";
 import s from "./Login.module.css";
+import Captcha from "./Captcha";
 
 function Login(props) {
   const onSubmit = async (formObject) => {
-
-    const data = await authAPI.login(
-      formObject.email,
-      formObject.password,
-      formObject.rememberMe
-    );
-
-    if (data.resultCode === 0) {
-      props.authTC();
-    } else {
-      return { [FORM_ERROR]: data.messages[0] };
+    try {
+      const req = await props.loginTC(
+        formObject.email,
+        formObject.password,
+        formObject.rememberMe,
+        formObject.captcha
+      );
+      if (req) {
+        return { [FORM_ERROR]: [req] };
+      }
+    } catch (error) {
+      return { [FORM_ERROR]: [`${error}`] };
     }
-    
   };
+
+  const captcha = props.captcha;
 
   if (props.isAuth) {
     return <Redirect to="/profile" />;
@@ -60,6 +62,7 @@ function Login(props) {
                 type="checkbox"
                 component={Checkbox}
               />
+              {captcha && <Captcha captcha={captcha} />}
               {props.submitError && (
                 <div className={s.error}>{props.submitError}</div>
               )}
@@ -82,8 +85,9 @@ function Login(props) {
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captcha: state.auth.captcha,
 });
 
 export default connect(mapStateToProps, {
-  authTC,
+  loginTC,
 })(Login);

@@ -1,0 +1,11 @@
+.container{
+    font-size: 14px;
+}
+.container input, .container label{
+    font-size:inherit;
+}
+.captchaContainer {
+  width: 200px;
+  height: 100px;
+  margin: 0 auto;
+}
