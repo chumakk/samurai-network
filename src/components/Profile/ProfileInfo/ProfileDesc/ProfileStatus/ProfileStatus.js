@@ -35,7 +35,7 @@ const ProfileStatus = (props) => {
             }
           }}
         >
-          Status: <span>{props.status}</span>
+          <span>{props.status}</span>
         </div>
       )}
     </div>

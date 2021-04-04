@@ -102,8 +102,9 @@ export const updateStatus = (status) => (dispatch) => {
 };
 
 export const updateAvatar = (avatar) => async (dispatch) => {
-  const response = await profileAPI.setAvatar(avatar);
-  dispatch(updateAvatarSuccess(response.data.data.photos));
+    const response = await profileAPI.setAvatar(avatar);
+    dispatch(updateAvatarSuccess(response.data.data.photos));
+    return response;
 };
 
 export default profileReducer;

@@ -8,7 +8,7 @@ import {
   isEmail,
 } from "../common/forms/validators";
 import { Redirect } from "react-router-dom";
-import { checkbox, input } from "../common/forms/fields";
+import { Checkbox, Input } from "../common/forms/fields";
 import { authAPI } from "../../api/api";
 import { FORM_ERROR } from "final-form";
 import s from "./Login.module.css";
@@ -42,7 +42,7 @@ function Login(props) {
               <Field
                 name="email"
                 validate={composeValidators(required, isEmail)}
-                component={input}
+                component={Input}
                 label="Email"
                 placeholder="email"
                 class={s.input}
@@ -52,13 +52,13 @@ function Login(props) {
                 validate={required}
                 label="Password"
                 placeholder="password"
-                component={input}
+                component={Input}
               />
               <Field
                 name="rememberMe"
                 label="remember me"
                 type="checkbox"
-                component={checkbox}
+                component={Checkbox}
               />
               {props.submitError && (
                 <div className={s.error}>{props.submitError}</div>

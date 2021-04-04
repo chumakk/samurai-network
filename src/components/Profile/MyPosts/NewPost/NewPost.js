@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
-import { textarea } from "../../../common/forms/fields";
+import { Textarea } from "../../../common/forms/fields";
 import s from "./NewPost.module.css";
 
 function NewPost(props) {
@@ -19,7 +19,7 @@ function NewPost(props) {
         >
           <Field
             name="message"
-            component={textarea}
+            component={Textarea}
             placeholder="How are you?"
           />
           <div>

@@ -1,4 +1,42 @@
-.avatar{
-    width: 200px;
-    margin-bottom: 10px;
-  }
+.avatarContainer {
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+.avatar {
+  width: 200px;
+  height: 200px;
+
+  margin: 0 auto;
+
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.avatar img {
+  border-radius: 50%;
+}
+.inputPhoto {
+  display: none;
+}
+.errors {
+  color: red;
+}
+.inputButton {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: inherit;
+  color: #fff;
+
+  width: 100%;
+  padding: 8px 10px 10px;
+
+  background: #44d1ff;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.inputButton:disabled {
+  cursor: default;
+  background: #1bc6ff;
+}

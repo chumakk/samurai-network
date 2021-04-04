@@ -51,13 +51,17 @@ export const profileAPI = {
 
   setAvatar: (avatar) => {
     const file = new FormData();
-    
+
     file.append("image", avatar);
     return instance.put("/profile/photo", file, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+  },
+
+  updateProfile: (profile) => {
+    return instance.put("/profile", profile);
   },
 };
 

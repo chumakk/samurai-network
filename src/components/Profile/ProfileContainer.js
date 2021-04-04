@@ -14,6 +14,13 @@ import { compose } from "redux";
 import WithAuthRedirect from "../HOC/withAuthRedirect";
 
 class ProfileComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false,
+    };
+    this.setEditMode = this.setEditMode.bind(this);
+  }
   componentDidMount() {
     this.props.getComponentProfile(
       this.props.match.params.userId,
@@ -39,7 +46,12 @@ class ProfileComponent extends React.Component {
       );
 
       this.props.setCurrentURL(this.props.match.url);
+      this.setEditMode(false);
     }
+  }
+
+  setEditMode(editMode) {
+    this.setState({ editMode: editMode });
   }
 
   componentWillUnmount() {
@@ -47,7 +59,14 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
-    return <Profile {...this.props} isOwner={!this.props.match.params.userId}  />;
+    return (
+      <Profile
+        {...this.props}
+        isOwner={!this.props.match.params.userId}
+        editMode={this.state.editMode}
+        setEditMode={this.setEditMode}
+      />
+    );
   }
 }
 
@@ -77,9 +96,7 @@ const mapDispatchToProps = (dispatch) => {
     updateStatus: (status) => {
       dispatch(updateStatus(status));
     },
-    updateAvatar: (avatar) =>{
-      dispatch(updateAvatar(avatar));
-    }
+    updateAvatar: (avatar) => dispatch(updateAvatar(avatar)),
   };
 };
 

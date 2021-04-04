@@ -1,10 +1,9 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
-import {textarea} from "../../common/forms/fields"
+import { Textarea } from "../../common/forms/fields";
 import s from "./NewMessage.module.css";
 
 export function NewMessage(props) {
-
   function onCreateNewMessage(form) {
     props.createNewMessage(form.message);
   }
@@ -12,13 +11,15 @@ export function NewMessage(props) {
   return (
     <Form onSubmit={onCreateNewMessage}>
       {(props) => (
-        <form onSubmit={(e)=>{
-          props.handleSubmit(e);
-          props.form.reset();
-        }}>
+        <form
+          onSubmit={(e) => {
+            props.handleSubmit(e);
+            props.form.reset();
+          }}
+        >
           <Field
             name="message"
-            component={textarea}
+            component={Textarea}
             placeholder="Enter the message"
           />
           <div>

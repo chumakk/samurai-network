@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./fields.module.css";
 
-export const textarea = (props) => {
+export const Textarea = (props) => {
   return (
     <div className={props.meta.error && !props.meta.active && props.meta.touched ? null : null}>
       <textarea {...props.input} className={s.input} placeholder={props.placeholder} />
@@ -12,7 +12,7 @@ export const textarea = (props) => {
   );
 };
 
-export const input = (props) => {
+export const Input = (props) => {
   return (
     <div className={props.meta.error && !props.meta.active && props.meta.touched ? s.inputContainerError : s.inputContainer}>
       <label>{props.label} </label>
@@ -24,7 +24,7 @@ export const input = (props) => {
   );
 };
 
-export const checkbox = (props) => {
+export const Checkbox = (props) => {
   return (
     <div className={s.checkboxContainer}>
       <input {...props.input} />

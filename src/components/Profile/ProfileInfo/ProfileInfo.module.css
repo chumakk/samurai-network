@@ -1,3 +1,43 @@
-.descriptionBlock {
+.profileBlock {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  column-gap: 20px;
   padding: 10px;
+}
+.editModeWrapper{
+  text-align: center;
+}
+
+.editMode{
+  font-family: inherit;
+  font-size: 14px;
+  line-height: inherit;
+  color: #fff;
+  padding: 8px 15px 10px;
+
+  background: #4473ff;
+
+  border: none;
+  outline: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.editMode:hover {
+  background: #295fff;
+}
+.contactHref{
+  font-weight: 600;
+  font-family: inherit;
+  font-size:inherit;
+  
+  color:#4473ff;
+
+  outline: none;
+  text-decoration: none;
+}
+
+.contactHref:hover{
+  color:#0040ff;
 }
