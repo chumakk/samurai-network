@@ -33,7 +33,7 @@ const ProfileForm = (props) => {
       initialValues={{
         userId: props.profile.userId,
         fullName: props.profile.fullName,
-        lookingForAJob: props.profile.lookingForAJob,
+        lookingForAJob: `${props.profile.lookingForAJob}`,
         lookingForAJobDescription: props.profile.lookingForAJobDescription,
         aboutMe: props.profile.aboutMe,
         contacts: {
@@ -62,16 +62,14 @@ const ProfileForm = (props) => {
                 name="lookingForAJob"
                 label="looking"
                 type="radio"
-                parse={(v) => !!v}
-                value={true}
+                value={"true"}
                 render={Radio}
               />
               <Field
                 name="lookingForAJob"
                 label="no looking"
                 type="radio"
-                value={false}
-                parse={(v) => !!v}
+                value={"false"}
                 render={Radio}
               />
             </div>

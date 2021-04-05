@@ -13,19 +13,11 @@
 .dialogsItems{
     grid-area: d;
     border-right: 1px solid #b4b4b4;
-    /* overflow: auto; */
     margin-bottom: 30px;
 }
 
 .messageSide{
     grid-area: m;
     padding:0 40px;
-    /* overflow: auto;
-    display: grid;
-    grid-template-rows: 1fr auto; */
     margin-bottom: 30px;
-}
-
-.messageContainer{
-   /* overflow: auto;  */
 }
